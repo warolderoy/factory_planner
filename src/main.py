@@ -8,10 +8,7 @@ def main():
     #win = Window(screen_x, screen_y)
 
     #win.wait_for_close()
-    test_item = Item("Copper plate")
-    print(test_item)
-    test_fuel = Item("Coal", 4)
-    print(test_fuel)
+    pass
 
 
 main()
