@@ -6,7 +6,8 @@ class Item:
     
     def burnable(self):
         if self.fuel_value:
-            return True
+            if self.fuel_value > 0:
+                return True
         return False
 
     def __repr__(self):
