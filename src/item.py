@@ -8,6 +8,7 @@ class Item:
         if self.fuel_value:
             if self.fuel_value > 0:
                 return True
+            raise ValueError("fuel value must be positive")
         return False
 
     def __repr__(self):
