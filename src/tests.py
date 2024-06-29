@@ -2,6 +2,7 @@ import unittest
 
 from item import Item
 from recipe import Recipe
+from machine import Machine
 
 class Tests(unittest.TestCase):
     # Item tests
@@ -22,24 +23,35 @@ class Tests(unittest.TestCase):
     def test_recipe(self):
         input = Item("Copper ore")
         output = Item("Copper plate")
-        recipe = Recipe(3.2, {input: 1}, {output: 1})
+        recipe = Recipe("Copper plate", 3.2, {input: 1}, {output: 1})
         self.assertEqual(
             recipe.__repr__(), 
-            "Recipe(3.2, inputs: {Item(Copper ore, None): 1}, outputs: {Item(Copper plate, None): 1})")
+            "Recipe(Copper plate, 3.2, inputs: {Item(Copper ore, None): 1}, outputs: {Item(Copper plate, None): 1})")
     
     def test_recipe_no_input(self):
         output = Item("Copper plate")
-        recipe = Recipe(3.2, outputs={output: 1})
+        recipe = Recipe("Copper plate", 3.2, outputs={output: 1})
         self.assertEqual(
             recipe.__repr__(), 
-            "Recipe(3.2, inputs: None, outputs: {Item(Copper plate, None): 1})")
+            "Recipe(Copper plate, 3.2, inputs: None, outputs: {Item(Copper plate, None): 1})")
     
     def test_recipe_no_output(self):
         input = Item("Copper ore")
-        recipe = Recipe(3.2, {input: 1})
+        recipe = Recipe("Copper plate", 3.2, {input: 1})
         self.assertEqual(
             recipe.__repr__(), 
-            "Recipe(3.2, inputs: {Item(Copper ore, None): 1}, outputs: None)")
+            "Recipe(Copper plate, 3.2, inputs: {Item(Copper ore, None): 1}, outputs: None)")
+        
+    # Machine tests
+    def test_machine_electric(self):
+        machine = Machine("Assembling machine 1", 0.5, 75)
+        self.assertEqual(machine.is_electric(), True)
+        self.assertEqual(
+            machine.__repr__(),
+            "Machine(Assembling machine 1, 0.5, 75, None, True)")
+    
+    def test_machine_burner(self):
+        pass
 
 
 if __name__ == "__main__":

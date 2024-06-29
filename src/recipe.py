@@ -1,5 +1,6 @@
 class Recipe:
-    def __init__(self, time, inputs=None, outputs=None):
+    def __init__(self, name, time, inputs=None, outputs=None):
+        self.name = name
         if time <= 0:
             raise ValueError("Recipe time should be positive")
         self.time = time
@@ -9,5 +10,5 @@ class Recipe:
         self.outputs = outputs
     
     def __repr__(self):
-        return f"Recipe({self.time}, inputs: {self.inputs}, outputs: {self.outputs})"
+        return f"Recipe({self.name}, {self.time}, inputs: {self.inputs}, outputs: {self.outputs})"
         
