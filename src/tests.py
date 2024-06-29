@@ -51,7 +51,13 @@ class Tests(unittest.TestCase):
             "Machine(Assembling machine 1, 0.5, 75, None, True)")
     
     def test_machine_burner(self):
-        pass
+        burn_fuel = Item("Coal", 4)
+        machine = Machine("Stone furnace", 1, 90, burn_fuel)
+        self.assertEqual(machine.get_fuel_items_per_second(), 0.0225)
+        self.assertEqual(machine.is_electric(), False)
+        self.assertEqual(
+            machine.__repr__(),
+            "Machine(Stone furnace, 1, 90, Item(Coal, 4), False)")
 
 
 if __name__ == "__main__":

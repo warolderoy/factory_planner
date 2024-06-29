@@ -14,7 +14,7 @@ class Machine:
     def get_fuel_items_per_second(self):
         if not self.__electric:
             if self.__burn_fuel.burnable():
-                return (self.__burn_fuel.fuel_value * 1000) / self.energy_consumption
+                return self.energy_consumption / (self.__burn_fuel.fuel_value * 1000)
         else:
             raise Exception("The machine is electric")
     
