@@ -1,13 +1,15 @@
 class Machine:
-    def __init__(self, name, crafting_speed, energy_consumption, burn_fuel=None):
+    def __init__(self, name, crafting_speed, energy_consumption, productivity = 1, burn_fuel=None, modules = []):
         self.name = name
         self.crafting_speed = crafting_speed
         self.energy_consumption = energy_consumption # in kw
+        self.productivity = productivity
         self.__burn_fuel = burn_fuel
         if burn_fuel == None:
             self.__electric = True
         else:
             self.__electric = False
+        self.modules = modules
     
     # Fuel value of the item should be in MJ
     # Energy consumption is in kw

@@ -52,7 +52,7 @@ class Tests(unittest.TestCase):
     
     def test_machine_burner(self):
         burn_fuel = Item("Coal", 4)
-        machine = Machine("Stone furnace", 1, 90, burn_fuel)
+        machine = Machine("Stone furnace", 1, 90, burn_fuel=burn_fuel)
         self.assertEqual(machine.get_fuel_items_per_second(), 0.0225)
         self.assertEqual(machine.is_electric(), False)
         self.assertEqual(
