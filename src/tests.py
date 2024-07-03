@@ -3,6 +3,7 @@ import unittest
 from item import Item
 from recipe import Recipe
 from machine import Machine
+from module import Module
 
 class Tests(unittest.TestCase):
     # Item tests
@@ -41,24 +42,65 @@ class Tests(unittest.TestCase):
         self.assertEqual(
             recipe.__repr__(), 
             "Recipe(Copper plate, 3.2, inputs: {Item(Copper ore, None): 1}, outputs: None)")
+    
+    # Module tests
+    def test_module(self):
+        module = Module("Speed module", 0.2, 0.5)
+        self.assertEqual(
+            module.__repr__(),
+            "Module(Speed module, 0.2, 0.5, 0)"
+        )
+        module = module + module
+        self.assertEqual(
+            module.__repr__(),
+            "Module(Speed module, 0.4, 1.0, 0)"
+        )
         
     # Machine tests
     def test_machine_electric(self):
-        machine = Machine("Assembling machine 1", 0.5, 75)
+        machine = Machine("Assembling machine 1", 0.5, 75, modules=[])
         self.assertEqual(machine.is_electric(), True)
         self.assertEqual(
             machine.__repr__(),
-            "Machine(Assembling machine 1, 0.5, 75, None, True)")
+            "Machine(Assembling machine 1, 0.5, 75, 1, None, True, modules: [])")
     
     def test_machine_burner(self):
         burn_fuel = Item("Coal", 4)
-        machine = Machine("Stone furnace", 1, 90, burn_fuel=burn_fuel)
+        machine = Machine("Stone furnace", 1, 90, burn_fuel=burn_fuel, modules=[])
         self.assertEqual(machine.get_fuel_items_per_second(), 0.0225)
         self.assertEqual(machine.is_electric(), False)
         self.assertEqual(
             machine.__repr__(),
-            "Machine(Stone furnace, 1, 90, Item(Coal, 4), False)")
-
+            "Machine(Stone furnace, 1, 90, 1, Item(Coal, 4), False, modules: [])")
+    
+    # Modded machines
+    def test_machine_one_module(self):
+        module = Module("Speed module", 0.2, 0.5)
+        machine = Machine("Assembling machine 1", 0.5, 75, modules=[module])
+        self.assertEqual(machine.modded_speed, 0.6)
+        self.assertEqual(machine.modded_energy, 112.5)
+    
+    def test_machine_min_mod(self):
+        module = Module("Efficiency module", 0, -1)
+        burn_fuel = Item("Coal", 4)
+        machine = Machine("Assembling machine 1", 1, 100, burn_fuel=burn_fuel, modules=[module])
+        self.assertEqual(machine.modded_energy, 20)
+        self.assertEqual(machine.get_fuel_items_per_second(), 0.005)
+    
+    def test_machine_add_module(self):
+        module = Module("Speed module", 0.2, 0.5)
+        machine = Machine("Assembling machine 1", 0.5, 75)
+        machine.add_module(module) # Why does this add to other machines?
+        self.assertEqual(machine.modded_speed, 0.6)
+        self.assertEqual(machine.modded_energy, 112.5)
+        
+        machine.remove_module("Speed module")
+        self.assertEqual(machine.modded_speed, 0.5)
+        self.assertEqual(machine.modded_energy, 75)
+    
+    def test_machine_get_modules(self):
+        machine = Machine("Assembling machine 1", 0.5, 75)
+        self.assertEqual(machine.get_modules(), [])
 
 if __name__ == "__main__":
     unittest.main()
