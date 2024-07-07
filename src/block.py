@@ -47,6 +47,7 @@ class Block:
         if len(self.__item_inputs) > 0:
             for item in self.__item_inputs:
                 if item in self.__item_outputs:
+                    # TODO: Redo this section (forgot machines)
                     # Item needs to be balanced so that it is only an input, an output or neither
                     # Amount of the item needs to be reduced accordingly
                     if self.__item_inputs[item] > self.__item_outputs[item]:
