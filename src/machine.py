@@ -60,6 +60,9 @@ class Machine:
         else:
             raise Exception("The machine is electric")
     
+    def get_burn_fuel(self):
+        return self.__burn_fuel
+    
     def is_electric(self):
         return self.__electric
     

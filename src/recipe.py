@@ -9,6 +9,20 @@ class Recipe:
         self.inputs = inputs
         self.outputs = outputs
     
+    def get_inputs_per_second(self):
+        inputs_per_s = {}
+        for input in self.inputs:
+            inputs_per_s[input] = self.inputs[input] / self.time
+        
+        return inputs_per_s
+    
+    def get_outputs_per_second(self):
+        outputs_per_s = {}
+        for output in self.outputs:
+            outputs_per_s[output] = self.outputs[output] / self.time
+        
+        return outputs_per_s
+    
     def __repr__(self):
         return f"Recipe({self.name}, {self.time}, inputs: {self.inputs}, outputs: {self.outputs})"
         

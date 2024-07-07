@@ -26,22 +26,30 @@ class Block:
         self.__item_outputs = {}
 
         for rm_pair in self.__recipe_machine_pairs:
-            inputs = rm_pair[0].inputs
-            outputs = rm_pair[0].outputs
+            inputs = rm_pair[0].get_inputs_per_second()
+            outputs = rm_pair[0].get_outputs_per_second()
 
             if len(inputs) > 0:
                 for input in inputs:
+                    input_per_second = inputs[input] * rm_pair[1].modded_speed
                     if input in self.__item_inputs:
-                        self.__item_inputs[input] += inputs[input]
+                        self.__item_inputs[input] += input_per_second
                     else:
-                        self.__item_inputs[input] = inputs[input]
+                        self.__item_inputs[input] = input_per_second
             
             if len(outputs) > 0:
                 for output in outputs:
+                    output_per_second = outputs[output] * rm_pair[1].modded_speed
                     if output in self.__item_outputs:
-                        self.__item_outputs[output] += outputs[output]
+                        self.__item_outputs[output] += output_per_second
                     else:
-                        self.__item_outputs[output] = outputs[output]
+                        self.__item_outputs[output] = output_per_second
+            
+            # TODO
+            # Add fuel if applicable
+            if not rm_pair[1].is_electric():
+                fuel = rm_pair[1].get_burn_fuel()
+                
 
         # Check if an item is both in inputs and outputs
         if len(self.__item_inputs) > 0:
