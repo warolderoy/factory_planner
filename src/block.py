@@ -50,12 +50,18 @@ class Block:
                     # TODO: Redo this section (forgot machines)
                     # Item needs to be balanced so that it is only an input, an output or neither
                     # Amount of the item needs to be reduced accordingly
+
+                    # Get an amount of item/s for input and output
+
+                    # Compare item/s and balance accordingly
                     if self.__item_inputs[item] > self.__item_outputs[item]:
                         self.__item_inputs[item] -= self.__item_outputs[item]
                         self.__item_outputs.pop(item)
+                    
                     elif self.__item_inputs[item] < self.__item_outputs[item]:
                         self.__item_outputs[item] -= self.__item_inputs[item]
                         self.__item_inputs.pop(item)
+                    
                     else:
                         self.__item_inputs.pop(item)
                         self.__item_outputs.pop(item)
