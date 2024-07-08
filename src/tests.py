@@ -42,6 +42,19 @@ class Tests(unittest.TestCase):
         self.assertEqual(
             recipe.__repr__(), 
             "Recipe(Copper plate, 3.2, inputs: {Item(Copper ore, None): 1}, outputs: None)")
+        
+    def test_recipe_io_per_second(self):
+        input = Item("Copper ore")
+        output = Item("Copper plate")
+        recipe = Recipe("Copper plate", 3.2, {input: 1}, {output: 1})
+        self.assertEqual(
+            recipe.get_inputs_per_second(),
+            {input: 1/3.2}
+        )
+        self.assertEqual(
+            recipe.get_outputs_per_second(),
+            {output: 1/3.2}
+        )
     
     # Module tests
     def test_module(self):
