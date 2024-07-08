@@ -86,6 +86,20 @@ class Tests(unittest.TestCase):
             machine.__repr__(),
             "Machine(Stone furnace, 1, 90, 1, Item(Coal, 4), False, modules: [])")
     
+    def test_machine_get_burn_fuel(self):
+        burn_fuel = Item("Coal", 4)
+        machine = Machine("Stone furnace", 1, 90, burn_fuel=burn_fuel, modules=[])
+        self.assertEqual(
+            machine.get_burn_fuel(),
+            burn_fuel
+        )
+
+        machine2 = Machine("Assembling machine 1", 0.5, 75, modules=[])
+        self.assertEqual(
+            machine2.get_burn_fuel(),
+            None
+        )
+
     # Modded machines
     def test_machine_one_module(self):
         module = Module("Speed module", 0.2, 0.5)
