@@ -1,7 +1,7 @@
 class RM_Pair:
     def __init__(self, recipe, machine):
         self.recipe = recipe
-        self.machine = machine
+        self.machine = machine.copy()
         self.inputs = {}
         self.outputs = {}
 
