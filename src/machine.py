@@ -66,6 +66,17 @@ class Machine:
     def is_electric(self):
         return self.__electric
     
+    def copy(self):
+        new_machine = Machine(
+            self.name, 
+            self.__crafting_speed, 
+            self.__energy_consumption,
+            self.__productivity,
+            self.__burn_fuel,
+            self.__modules
+        )
+        return new_machine
+    
     # doesn't include everything
     def __repr__(self):
         return f"Machine({self.name}, {self.__crafting_speed}, {self.__energy_consumption}, {self.__productivity}, {self.__burn_fuel}, {self.__electric}, modules: {self.__modules})"

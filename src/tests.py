@@ -100,6 +100,18 @@ class Tests(unittest.TestCase):
             machine2.get_burn_fuel(),
             None
         )
+    
+    def test_machine_copy(self):
+        machine = Machine("Assembling machine 1", 0.5, 75, modules=[])
+        new_machine = machine.copy()
+        self.assertNotEqual(
+            new_machine,
+            machine
+        )
+        self.assertEqual(
+            new_machine.name,
+            machine.name
+        )
 
     # Modded machines
     def test_machine_one_module(self):
