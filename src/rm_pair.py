@@ -23,9 +23,9 @@ class RM_Pair:
             # If yes, add to input (using machine method)
             burn_fuel = self.machine.get_burn_fuel()
             if burn_fuel in inputs:
-                input[burn_fuel] += self.machine.get_fuel_items_per_second()
+                inputs[burn_fuel] += self.machine.get_fuel_items_per_second()
             else:
-                input[burn_fuel] = self.machine.get_fuel_items_per_second()
+                inputs[burn_fuel] = self.machine.get_fuel_items_per_second()
         # Else the machine is electric
         # Finally set the inputs and outputs
         self.inputs = inputs

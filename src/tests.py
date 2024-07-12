@@ -4,6 +4,7 @@ from item import Item
 from recipe import Recipe
 from machine import Machine
 from module import Module
+from rm_pair import RM_Pair
 
 class Tests(unittest.TestCase):
     # Item tests
@@ -128,6 +129,57 @@ class Tests(unittest.TestCase):
     def test_machine_get_modules(self):
         machine = Machine("Assembling machine 1", 0.5, 75)
         self.assertEqual(machine.get_modules(), [])
+    
+    # rm_pair tests
+    def test_rm_pair_base(self):
+        burn_fuel = Item("Coal", 4)
+        machine = Machine("Stone furnace", 1, 90, burn_fuel=burn_fuel, modules=[])
+        input = Item("Copper ore")
+        output = Item("Copper plate")
+        recipe = Recipe("Copper plate", 3.2, {input: 1}, {output: 1})
+        pair = RM_Pair(recipe, machine)
+
+        self.assertEqual(
+            pair.inputs[input],
+            1 / 3.2
+        )
+        self.assertEqual(
+            pair.outputs[output],
+            1 / 3.2
+        )
+        self.assertEqual(
+            pair.inputs[burn_fuel],
+            0.0225
+        )
+    
+    def test_rm_pair_module(self):
+        module = Module("Speed module", 1)
+        burn_fuel = Item("Coal", 4)
+        machine = Machine("Stone furnace", 1, 90, burn_fuel=burn_fuel, modules=[])
+        input = Item("Copper ore")
+        output = Item("Copper plate")
+        recipe = Recipe("Copper plate", 3.2, {input: 1}, {output: 1})
+        pair = RM_Pair(recipe, machine)
+
+        pair.add_module(module)
+        self.assertEqual(
+            pair.inputs[input],
+            2 / 3.2
+        )
+        self.assertEqual(
+            pair.outputs[output],
+            2 / 3.2
+        )
+
+        pair.remove_module("Speed module")
+        self.assertEqual(
+            pair.inputs[input],
+            1 / 3.2
+        )
+        self.assertEqual(
+            pair.outputs[output],
+            1 / 3.2
+        )
 
 if __name__ == "__main__":
     unittest.main()
