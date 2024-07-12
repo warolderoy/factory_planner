@@ -27,4 +27,15 @@ class RM_Pair:
             else:
                 input[burn_fuel] = self.machine.get_fuel_items_per_second()
         # Else the machine is electric
+        # Finally set the inputs and outputs
+        self.inputs = inputs
+        self.outputs = outputs
+    
+    def add_module(self, module):
+        self.machine.add_module(module)
+        self.__generate_io_per_second()
+
+    def remove_module(self, module_name):
+        self.machine.remove_module(module_name)
+        self.__generate_io_per_second()
         
