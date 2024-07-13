@@ -205,6 +205,20 @@ class Tests(unittest.TestCase):
             pair.machine,
             machine
         )
+    
+    def test_rm_pair_scale(self):
+        burn_fuel = Item("Coal", 4)
+        machine = Machine("Stone furnace", 1, 90, burn_fuel=burn_fuel, modules=[])
+        input = Item("Copper ore")
+        output = Item("Copper plate")
+        recipe = Recipe("Copper plate", 3.2, {input: 1}, {output: 1})
+        pair = RM_Pair(recipe, machine)
+
+        pair.set_scale(48)
+        self.assertEqual(
+            pair.inputs[input],
+            1 / 3.2 * 48
+        )
 
 if __name__ == "__main__":
     unittest.main()
